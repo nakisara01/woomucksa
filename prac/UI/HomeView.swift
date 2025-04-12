@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     @State var showSheet: Bool = false
+    @Environment(\.dismiss) var dismiss
     /*
      State가 부여되는 변수의 경우 그 상태를 SwiftUI가 계속해서 추적해야하는데
      body 안에 있으면 view의 lifecycle 안에 관리할 수 없어서 밖에 둬야함.
