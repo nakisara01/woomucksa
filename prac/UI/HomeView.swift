@@ -8,6 +8,13 @@
 import SwiftUI
 
 struct HomeView: View {
+    @State var showSheet: Bool = false
+    /*
+     State가 부여되는 변수의 경우 그 상태를 SwiftUI가 계속해서 추적해야하는데
+     body 안에 있으면 view의 lifecycle 안에 관리할 수 없어서 밖에 둬야함.
+     값이 body 외부에 있어야 값이 변경될 때 뷰를 자동으로 다시 렌더링 한다.
+     */
+    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -42,9 +49,12 @@ struct HomeView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("약속 추가") {
-                        // 액션
+                        showSheet.toggle()
                     }
                     .foregroundColor(.blue) // 버튼 글자 색
+                    .sheet(isPresented: $showSheet) {
+                        AddPromiseView()
+                    }
                 }
             }
             .toolbarBackground(Color(.white), for: .navigationBar)
