@@ -7,4 +7,9 @@
 
 import SwiftUI
 
-
+struct AddPromiseView: View{
+    var body: some View{
+        Text("해야해")
+    }
+}
+//TODO: 오늘 다 해야한다
