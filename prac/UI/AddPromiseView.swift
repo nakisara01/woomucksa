@@ -31,16 +31,16 @@ struct AddPromiseView: View{
                     VStack(spacing: 32) {
                         // 사용자 정보 카드
                         VStack(alignment: .leading, spacing: 12) {
-                            Text("나의 정보")
+                            Text("약속 정보")
                                 .font(.caption)
                                 .foregroundColor(.gray)
                             
                             VStack(spacing: 0) {
-                                InfoRow(label: "닉네임", value: "Joid")
+                                InputRow(label: "장소", hintText: "장소를 입력해주세요")
                                 Divider()
-                                InfoRow(label: "본명", value: "나현흠")
+                                InputRow(label: "시간", hintText: "0000")
                                 Divider()
-                                InfoRow(label: "유저 ID", value: "dbwjid12345678", valueColor: .black)
+                                InputRow(label: "세부 내용", hintText: "10자 이내(ex. 간맥, 식사 등)")
                             }
                             .padding(.horizontal)
                             .padding(.vertical, 8)
@@ -81,4 +81,26 @@ struct AddPromiseView: View{
                 }
             }
         }
+}
+
+struct InputRow: View {
+    @State var text: String = ""
+    var label: String
+    var hintText: String
+    var valueColor: Color = .black
+
+    var body: some View {
+        HStack {
+            Text(label)
+                .font(.body)
+            Spacer()
+            TextField(hintText, text: $text)
+                .multilineTextAlignment(.trailing)
+        }
+        .padding(.vertical, 8)
+    }
+}
+
+#Preview{
+    MyPageView()
 }

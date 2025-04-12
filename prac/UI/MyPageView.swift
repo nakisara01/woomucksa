@@ -56,7 +56,6 @@ struct MyPageView: View {
     }
 }
 
-// 🔸 정보 행 컴포넌트
 struct InfoRow: View {
     var label: String
     var value: String
