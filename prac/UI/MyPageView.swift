@@ -49,6 +49,9 @@ struct MyPageView: View {
             .padding(.top)
             .navigationTitle("마이 페이지")
             .background(Color(.systemGray6))
+            .toolbarBackground(Color(.white), for: .navigationBar)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(.visible, for: .navigationBar)
         }
     }
 }
