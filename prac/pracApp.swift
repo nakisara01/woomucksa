@@ -11,7 +11,7 @@ import SwiftUI
 struct pracApp: App {
     var body: some Scene {
         WindowGroup {
-            MainPage()
+            SplashView()
         }
     }
 }
