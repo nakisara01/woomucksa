@@ -37,7 +37,7 @@ struct RowView: View {
                         .foregroundColor(.gray)
 
                     VStack(spacing: 0) {
-                        InputRow(label: "장소", hintText: "장소를 입력해주세요")
+                        InfoRow(label: "장소", value: "어리닭갈비")
                         Divider()
 
                         HStack {

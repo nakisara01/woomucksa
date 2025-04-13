@@ -56,23 +56,6 @@ struct MyPageView: View {
     }
 }
 
-struct InfoRow: View {
-    var label: String
-    var value: String
-    var valueColor: Color = .black
-
-    var body: some View {
-        HStack {
-            Text(label)
-                .font(.body)
-            Spacer()
-            Text(value)
-                .foregroundColor(valueColor)
-        }
-        .padding(.vertical, 8)
-    }
-}
-
 #Preview{
     MyPageView()
 }

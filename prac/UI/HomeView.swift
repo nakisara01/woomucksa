@@ -28,20 +28,21 @@ struct HomeView: View {
                     EventCardView(
                         title: "Joid님의 약속",
                         place: "야끼니꾸소량 포항쌍사점",
-                        date: "2025.03.27(목) 19:30",
-                        onTap: { print("작동됨") }
+                        date: "2025.03.27(목) 19:30"
                     )
                     
                     Text("진행중인 이벤트")
                         .foregroundColor(.gray)
                         .font(.caption)
-                    
-                    EventCardView(
-                        title: "Rama님의 약속",
-                        place: "라멘베라보",
-                        date: "2025.03.27(목) 19:30",
-                        onTap: { print("작동됨") }
-                    )
+                    NavigationStack{
+                        NavigationLink(destination: PromiseDetailView()) {
+                            EventCardView(
+                                title: "Rama님의 약속",
+                                place: "라멘베라보",
+                                date: "2025.03.27(목) 19:30"
+                            )
+                        }
+                    }
                 }
                 .padding()
             }
