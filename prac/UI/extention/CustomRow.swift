@@ -82,7 +82,7 @@ struct InfoRow: View {
                 .font(.body)
             Spacer()
             Text(value)
-                .foregroundColor(valueColor)
+                .foregroundColor(Color.gray)
         }
         .padding(.vertical, 8)
     }

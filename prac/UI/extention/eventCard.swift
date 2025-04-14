@@ -13,35 +13,45 @@ struct EventCardView: View {
     var date: String
     
     var body: some View {
-        HStack(alignment: .center, spacing: 20) {
-            Text(title)
-                .font(.headline)
-            VStack(alignment: .leading) {
-                HStack {
-                    Text("📍")
-                    Text(place)
-                        .lineLimit(1)
-                        .truncationMode(.tail)
-                        .foregroundColor(.gray)
-                        .font(.subheadline)
+        VStack(alignment: .leading) {
+            HStack{
+                VStack(alignment: .leading){
+                    Text(title)
+                        .font(.headline)
+                        .foregroundStyle(Color.black)
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Text("📍")
+                            Text(place)
+                                .lineLimit(1)
+                                .truncationMode(.tail)
+                                .foregroundColor(.gray)
+                                .font(.subheadline)
+                        }
+                        HStack {
+                            Text("🕐")
+                            Text(date)
+                                .lineLimit(1)
+                                .truncationMode(.tail)
+                                .foregroundColor(.gray)
+                                .font(.subheadline)
+                        }
+                    }
+                    .padding(.top, 5)
                 }
-                HStack {
-                    Text("🕐")
-                    Text(date)
-                        .lineLimit(1)
-                        .truncationMode(.tail)
-                        .foregroundColor(.gray)
-                        .font(.subheadline)
-                }
+                .frame(maxWidth: 600, alignment: .leading)
+                Spacer()
+                
+                Image(systemName: "chevron.right")
+                    .foregroundColor(.gray)
+                    .font(.system(size: 14, weight: .semibold))
             }
-            Spacer()
-            Image(systemName: "chevron.right")
-                .foregroundColor(.gray)
-                .font(.system(size: 14, weight: .semibold))
+            .padding()
+            .background(Color.white)
+            .cornerRadius(16)
+            
+            
         }
-        .padding()
-        .background(Color.white)
-        .cornerRadius(16)
     }
 }
 

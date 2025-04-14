@@ -37,7 +37,7 @@ struct RowView: View {
                         .foregroundColor(.gray)
 
                     VStack(spacing: 0) {
-                        InfoRow(label: "장소", value: "어리닭갈비")
+                        InputRow(label: "장소", hintText: "식당을 입력해주세요")
                         Divider()
 
                         HStack {
@@ -65,9 +65,8 @@ struct RowView: View {
                 }
                 .padding(.horizontal)
 
-                // 이메일 문의 버튼
                 Button(action: {
-                    // 이메일 전송 액션
+                    dismiss()
                 }) {
                     Text("약속 만들기")
                         .foregroundColor(.blue)
