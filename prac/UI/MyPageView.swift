@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct MyPageView: View {
+    @Environment(\.openURL) var openURL
+    private var email = SupportEmail(toAddress: "nakisara01@postech.ac.kr", subject: "[문의사항]", messageHeader: "아래에 내용을 입력해주세요.")
     var body: some View {
+        
         NavigationStack {
             VStack(spacing: 32) {
                 // 사용자 정보 카드
@@ -33,7 +36,7 @@ struct MyPageView: View {
 
                 // 이메일 문의 버튼
                 Button(action: {
-                    // 이메일 전송 액션 (mailto: 등)
+                    email.send(openURL: openURL)
                 }) {
                     Text("이메일로 문의하기")
                         .foregroundColor(.blue)

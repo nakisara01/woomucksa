@@ -30,7 +30,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		320FDE002DAA91EC00411670 /* Exceptions for "prac" folder in "prac" target */ = {
+		320FDE322DAC234000411670 /* Exceptions for "prac" folder in "prac" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -43,7 +43,7 @@
 		320FDD862D97EF6300411670 /* prac */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				320FDE002DAA91EC00411670 /* Exceptions for "prac" folder in "prac" target */,
+				320FDE322DAC234000411670 /* Exceptions for "prac" folder in "prac" target */,
 			);
 			path = prac;
 			sourceTree = "<group>";
