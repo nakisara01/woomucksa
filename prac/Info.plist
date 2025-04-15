@@ -4,6 +4,11 @@
 <dict>
     <key>UIUserInterfaceStyle</key>
     <string>Light</string>
+    
+    <key>UIAppFonts</key>
+    <array>
+        <string>GamjaFlower-Regular.ttf</string>
+    </array>
 
     <key>CFBundleDocumentTypes</key>
     <array>

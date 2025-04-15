@@ -9,9 +9,15 @@ import SwiftUI
 
 @main
 struct pracApp: App {
+    @AppStorage("isLoggedIn") var isLoggedIn: Bool = false
+    
     var body: some Scene {
         WindowGroup {
-            SplashView()
+            if isLoggedIn {
+                MainPage()
+            } else{
+                LoginView()
+            }
         }
     }
 }

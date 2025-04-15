@@ -12,7 +12,7 @@ struct SplashView: View {
 
     var body: some View {
         if isActive {
-            MainPage() // 2초 후 이동할 메인 페이지
+            LoginView() // 2초 후 이동할 메인 페이지
         } else {
             VStack {
                 Spacer()
