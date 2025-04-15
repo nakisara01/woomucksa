@@ -6,10 +6,15 @@
 //
 
 import SwiftUI
+import Firebase
 
 @main
 struct pracApp: App {
     @AppStorage("isLoggedIn") var isLoggedIn: Bool = false
+    
+    init() {
+        FirebaseApp.configure()
+    }
     
     var body: some Scene {
         WindowGroup {

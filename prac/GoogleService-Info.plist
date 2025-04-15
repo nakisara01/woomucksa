@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyDoDhC3YK-t0ab1nrmADk95uJ5q_Uegcf8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>889717516652</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>Joid.prac</string>
+	<key>PROJECT_ID</key>
+	<string>woomucksa</string>
+	<key>STORAGE_BUCKET</key>
+	<string>woomucksa.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:889717516652:ios:b2c30de0a027ef97ba6b49</string>
+</dict>
+</plist>

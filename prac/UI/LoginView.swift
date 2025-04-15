@@ -11,7 +11,7 @@ struct LoginView: View {
     @State var text: String = ""
     var valueColor: Color = .black
     @AppStorage("isLoggedIn") var isLoggedIn: Bool = false
-
+    
     
     var body: some View {
         NavigationStack{
@@ -21,7 +21,7 @@ struct LoginView: View {
                     .frame(width:220, height:200)
                 
                 Text("우리 먹먹한 사이...")
-                    .font(.custom("GamjaFlower-Regular", size: 32))
+                    .font(.custom("Gamja Flower", size: 32))
                     .padding(.bottom, 130)
                 
                 HStack {
@@ -38,8 +38,8 @@ struct LoginView: View {
                 )
                 .padding(.horizontal, 30)
                 Button("확인") {
-                                isLoggedIn = true
-                            }
+                    isLoggedIn = true
+                }
                 .padding(.top,20)
             }
         }
