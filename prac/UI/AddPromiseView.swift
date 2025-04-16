@@ -28,8 +28,8 @@ struct RowView: View {
     @State var place: String = ""
     @State private var wakeUp = Date()
     @State var purpose: String = ""
-    @State private var minCount: Int = 1
-    @State private var maxCount: Int = 2
+    @State private var minCount: Int = 0
+    @State private var maxCount: Int = 0
     @AppStorage("nickname") var nickname: String = ""
     
     var isFormValid: Bool {
@@ -55,8 +55,9 @@ struct RowView: View {
                             Text("일시")
                                 .font(.body)
                             Spacer()
-                            DatePicker("Please enter a date", selection: $wakeUp)
+                            DatePicker("날짜를 선택해주세요", selection: $wakeUp, displayedComponents: [.date, .hourAndMinute])
                                 .labelsHidden()
+                                .environment(\.locale, Locale(identifier: "ko_KR"))
                         }
                         .padding(.vertical, 8)
                         Divider()
@@ -82,16 +83,15 @@ struct RowView: View {
                         if success {
                             dismiss()
                         } else {
-                            // 실패했을 때 사용자에게 알림을 줄 수도 있음
                             print("약속 생성 실패")
                         }
                     })
                 }) {
                     Text("약속 만들기")
-                        .foregroundColor(.blue)
+                        .foregroundColor(isFormValid ? .white : .gray)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color.white)
+                        .background(isFormValid ? Color.blue : Color.gray.opacity(0.3))
                         .cornerRadius(8)
                 }
                 .padding(.horizontal)
