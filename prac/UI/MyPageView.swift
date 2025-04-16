@@ -9,6 +9,9 @@ import SwiftUI
 
 struct MyPageView: View {
     @Environment(\.openURL) var openURL
+    @AppStorage("name") var name: String = ""
+    @AppStorage("nickname") var nickname: String = ""
+    
     private var email = SupportEmail(toAddress: "nakisara01@postech.ac.kr", subject: "[문의사항]", messageHeader: "아래에 내용을 입력해주세요.")
     var body: some View {
         
@@ -21,11 +24,9 @@ struct MyPageView: View {
                         .foregroundColor(.gray)
                     
                     VStack(spacing: 0) {
-                        InfoRow(label: "닉네임", value: "Joid")
+                        InfoRow(label: "닉네임", value: nickname)
                         Divider()
-                        InfoRow(label: "본명", value: "나현흠")
-                        Divider()
-                        InfoRow(label: "유저 ID", value: "dbwjid12345678", valueColor: .black)
+                        InfoRow(label: "본명", value: name)
                     }
                     .padding(.horizontal)
                     .padding(.vertical, 8)

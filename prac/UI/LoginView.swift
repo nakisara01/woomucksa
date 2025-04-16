@@ -10,10 +10,11 @@ import FirebaseAuth
 import FirebaseFirestore
 
 struct LoginView: View {
-    @State var text: String = ""
-    @State var name: String = ""
     var valueColor: Color = .black
+    @AppStorage("nickname") var nickname: String = ""
+    @AppStorage("name") var name: String = ""
     @AppStorage("isLoggedIn") var isLoggedIn: Bool = false
+    
     
     
     var body: some View {
@@ -32,14 +33,15 @@ struct LoginView: View {
                         Text("닉네임")
                             .font(.body)
                         Spacer()
-                        TextField("닉네임을 영어로 입력해주세요", text: $text)
-                            .multilineTextAlignment(.trailing)
-                            .onChange(of: text) { newValue in
+                        TextField("닉네임을 영어로 입력해주세요", text: Binding(
+                            get: { nickname },
+                            set: { newValue in
                                 let filtered = newValue.lowercased().filter { $0.isLetter && $0.isASCII }
-                                if filtered != newValue {
-                                    text = filtered
-                                }
+                                nickname = filtered
+                                UserDefaults.standard.set(filtered, forKey: "nickname") // Save to AppStorage manually
                             }
+                        ))
+                            .multilineTextAlignment(.trailing)
                         
                     }
                     Divider()
@@ -47,16 +49,16 @@ struct LoginView: View {
                         Text("이름")
                             .font(.body)
                         Spacer()
-                        TextField("이름을 입력해주세요", text: $name)
+                        TextField("이름을 입력해주세요", text: Binding(
+                            get: { name },
+                            set: { newValue in
+                                name = newValue
+                                UserDefaults.standard.set(newValue, forKey: "name") // Save to AppStorage manually
+                            }
+                        ))
                             .multilineTextAlignment(.trailing)
                         
                     }
-//                    .padding()
-//                    .background(
-//                        RoundedRectangle(cornerRadius: 5)
-//                            .stroke(Color.gray, lineWidth: 1)
-//                    )
-//                    .padding(.horizontal, 30)
                     
                 }
                 .padding()
@@ -66,7 +68,7 @@ struct LoginView: View {
                 )
                 .padding(.horizontal, 30)
                 Button(action: {
-                    loginWithUUID(nickname: text, name: name) { success in
+                    loginWithUUID(nickname: nickname, name: name) { success in
                         if success {
                             isLoggedIn = true
                         } else {
@@ -75,13 +77,13 @@ struct LoginView: View {
                     }
                 }) {
                     Text("확인")
-                        .foregroundColor((text.isEmpty || name.isEmpty) ? .gray : .white)
+                        .foregroundColor((nickname.isEmpty || name.isEmpty) ? .gray : .white)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background((text.isEmpty || name.isEmpty) ? Color.gray.opacity(0.3) : Color.blue)
+                        .background((nickname.isEmpty || name.isEmpty) ? Color.gray.opacity(0.3) : Color.blue)
                         .cornerRadius(8)
                 }
-                .disabled(text.isEmpty || name.isEmpty)
+                .disabled(nickname.isEmpty || name.isEmpty)
                 .padding(.top, 20)
                 .padding(.horizontal, 30)
             }
@@ -101,6 +103,8 @@ func loginWithUUID(nickname: String, name: String, completion: @escaping (Bool) 
             completion(false)
             return
         }
+        
+        
         
         // Firestore에 사용자 정보 저장
         let db = Firestore.firestore()
