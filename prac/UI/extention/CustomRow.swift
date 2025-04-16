@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct InputRow: View {
-    @State var text: String = ""
+    @Binding var text: String
     var label: String
     var hintText: String
     var valueColor: Color = .black
@@ -27,7 +27,8 @@ struct InputRow: View {
 
 struct PickerRow: View {
     var label: String
-    @State private var selectedNumber = 0
+    @Binding var selection: Int
+    var range: ClosedRange<Int>
     @State private var isExpanded = false
 
     var body: some View {
@@ -36,13 +37,12 @@ struct PickerRow: View {
                 Text(label)
                     .font(.body)
                 Spacer()
-                // 눌렀을 때 Picker 펼쳐지도록
                 Button(action: {
                     withAnimation {
                         isExpanded.toggle()
                     }
                 }) {
-                    Text("\(selectedNumber)")
+                    Text("\(selection)")
                         .foregroundColor(isExpanded ? .blue : .black)
                         .frame(width: 40, height: 40)
                         .background(Color.gray.opacity(0.1))
@@ -55,8 +55,8 @@ struct PickerRow: View {
             }
 
             if isExpanded {
-                Picker("", selection: $selectedNumber) {
-                    ForEach(0..<100) { number in
+                Picker("", selection: $selection) {
+                    ForEach(Array(range), id: \.self) { number in
                         Text("\(number)").tag(number)
                     }
                 }
@@ -64,7 +64,7 @@ struct PickerRow: View {
                 .labelsHidden()
                 .frame(height: 150)
                 .clipped()
-                .transition(.move(edge: .bottom)) // 부드러운 아래쪽 등장
+                .transition(.move(edge: .bottom))
             }
         }
         .padding(.vertical, 8)
