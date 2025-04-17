@@ -67,7 +67,7 @@ struct RowView: View {
                         
                         PickerRow(label: "최소인원", selection: $minCount, range: 1...10)
                         Divider()
-                        PickerRow(label: "최대인원", selection: $maxCount, range: minCount...10)
+                        PickerRow(label: "최대인원", selection: $maxCount, range: minCount...20)
                         // TODO: 최대인원이 최소인원보다 작게 입력되지 않도록 변경
                     }
                     .padding(.horizontal)
