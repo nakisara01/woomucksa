@@ -119,9 +119,11 @@ struct RowView: View {
 
 func createPromise(nickname: String, place: String, date: Date, purpose: String, minCount: Int, maxCount: Int, completion: @escaping (Bool) -> Void) {
     let db = Firestore.firestore()
+    let docRef = db.collection("promise").document()
     
     let promiseData: [String: Any] = [
-        "nickname": nickname.lowercased(),
+        "id": docRef.documentID,
+        "nickname": [nickname.lowercased()],
         "place": place,
         "date": Timestamp(date: date),
         "purpose": purpose,
@@ -130,7 +132,7 @@ func createPromise(nickname: String, place: String, date: Date, purpose: String,
         "createdAt": Timestamp()
     ]
     
-    db.collection("promise").addDocument(data: promiseData) { error in
+    docRef.setData(promiseData) { error in
         if let error = error {
             print("약속 생성 오류: \(error.localizedDescription)")
             completion(false)

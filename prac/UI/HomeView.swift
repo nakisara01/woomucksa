@@ -24,7 +24,7 @@ struct HomeView: View {
         var purpose: String
         var place: String
         var date: String
-        var nicknames: [String]
+        var nickname: [String]
     }
     
     var body: some View {
@@ -37,26 +37,26 @@ struct HomeView: View {
                         .font(.caption)
                     
                     ForEach(myPromises) { promise in
-                        EventCardView(
-                            title: promise.purpose,
-                            place: promise.place,
-                            date: promise.date
-                        )
+                        NavigationLink(destination: PromiseDetailView(id: promise.id)) {
+                            EventCardView(
+                                title: promise.purpose,
+                                place: promise.place,
+                                date: promise.date
+                            )
+                        }
                     }
                     
                     Text("진행중인 이벤트")
                         .foregroundColor(.gray)
                         .font(.caption)
-                    NavigationStack{
                         ForEach(otherPromises) { promise in
-                            NavigationLink(destination: PromiseDetailView()) {
+                            NavigationLink(destination: PromiseDetailView(id: promise.id)) {
                                 EventCardView(
                                     title: promise.purpose,
                                     place: promise.place,
                                     date: promise.date
                                 )
                             }
-                        }
                     }
                 }
                 .padding()
@@ -108,12 +108,13 @@ struct HomeView: View {
                 dateFormatter.dateFormat = "yyyy.MM.dd(E) HH:mm"
                 dateFormatter.locale = Locale(identifier: "ko_KR")
                 let date = timestamp != nil ? dateFormatter.string(from: timestamp!.dateValue()) : ""
-                let nicknames = data["nickname"] as? [String] ?? []
+                let nickname = data["nickname"] as? [String] ?? []
                 let id = doc.documentID
-                let promise = Promise(id: id, purpose: purpose, place: place, date: date, nicknames: nicknames)
+                let promise = Promise(id: id, purpose: purpose, place: place, date: date, nickname: nickname)
+                print(promise)
                 let currentNickname = UserDefaults.standard.string(forKey: "nickname") ?? ""
                 
-                if nicknames.contains(currentNickname) {
+                if nickname.contains(currentNickname) {
                     myPromises.append(promise)
                 } else {
                     otherPromises.append(promise)
