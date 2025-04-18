@@ -57,8 +57,8 @@ struct PromiseDetailView: View {
                     .padding(.horizontal)
                     
                     // 이메일 문의 버튼
-                    if promise.nickname.first == currentNickname {
-                        // 약속 생성자일 경우: 삭제하기 버튼
+                    if promise.nickname.first == currentNickname && promise.nickname.count < promise.maxCount {
+                        // 삭제하기 버튼
                         Button(action: {
                             showDeleteAlert = true
                         }) {
@@ -83,10 +83,31 @@ struct PromiseDetailView: View {
                                 Text("이 약속은 영구적으로 삭제되며 복구할 수 없습니다.")
                             }
                         )
+                    } else if promise.nickname.first == currentNickname && promise.nickname.count >= promise.maxCount {
+                        Button(action: {}) {
+                            Text("참여 마감")
+                                .foregroundColor(.gray)
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(Color(.systemGray5))
+                                .cornerRadius(8)
+                        }
+                        .padding(.horizontal)
+                        .disabled(true)
                     } else if promise.nickname.contains(currentNickname) {
-                        // 이미 참여한 경우: 참여완료 비활성화 버튼
                         Button(action: {}) {
                             Text("참여완료")
+                                .foregroundColor(.gray)
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(Color(.systemGray5))
+                                .cornerRadius(8)
+                        }
+                        .padding(.horizontal)
+                        .disabled(true)
+                    } else if promise.nickname.count >= promise.maxCount {
+                        Button(action: {}) {
+                            Text("참여 마감")
                                 .foregroundColor(.gray)
                                 .frame(maxWidth: .infinity)
                                 .padding()
@@ -162,6 +183,11 @@ struct PromiseDetailView: View {
             dateFormatter.dateFormat = "yyyy.MM.dd(E) HH:mm"
             dateFormatter.locale = Locale(identifier: "ko_KR")
             let date = timestamp != nil ? dateFormatter.string(from: timestamp!.dateValue()) : ""
+            if let dateValue = timestamp?.dateValue(), Date() > dateValue.addingTimeInterval(3600) {
+                print("약속이 1시간 지나 삭제됩니다.")
+                deletePromise()
+                return
+            }
             let minCount = data["minCount"] as? Int ?? 0
             let maxCount = data["maxCount"] as? Int ?? 0
             let nickname = data["nickname"] as? [String] ?? []

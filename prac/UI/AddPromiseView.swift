@@ -104,7 +104,7 @@ struct RowView: View {
                 Spacer()
             }
             .padding(.top)
-            .navigationTitle("Joid님의 약속 생성중")
+            .navigationTitle("\(nickname)님의 약속 생성중")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
