@@ -10,10 +10,12 @@ import Firebase
 import FirebaseMessaging
 
 struct AddPromiseView: View {
+    var onDismiss: () -> Void
+
     var body: some View {
         ZStack(alignment: .topLeading) {
             Color.white
-            RowView()
+            RowView(onDismiss: onDismiss)
         }
     }
 }
@@ -25,6 +27,7 @@ struct AddPromiseView: View {
  */
 
 struct RowView: View {
+    var onDismiss: () -> Void
     @Environment(\.dismiss) var dismiss
     @State var place: String = ""
     @State private var wakeUp = Date()
@@ -49,6 +52,8 @@ struct RowView: View {
                         .foregroundColor(.gray)
                     
                     VStack(spacing: 0) {
+                        InputRow(text: $purpose, label: "약속 제목", hintText: "약속의 제목을 입력해주세요.")
+                        Divider()
                         InputRow(text: $place, label: "장소", hintText: "식당을 입력해주세요")
                         Divider()
                         
@@ -63,9 +68,6 @@ struct RowView: View {
                         .padding(.vertical, 8)
                         Divider()
                         
-                        InputRow(text: $purpose, label: "세부 내용", hintText: "10자 이내(ex. 간맥, 식사 등)")
-                        Divider()
-                        
                         PickerRow(label: "최소인원", selection: $minCount, range: 1...10)
                         Divider()
                         PickerRow(label: "최대인원", selection: $maxCount, range: minCount...20)
@@ -78,10 +80,11 @@ struct RowView: View {
                 }
                 .padding(.horizontal)
                 
-                Button(action: {
+    Button(action: {
                     createPromise(nickname: nickname, place: place, date: wakeUp, purpose: purpose, minCount: minCount, maxCount: maxCount, completion: {
                         success in
                         if success {
+                            onDismiss()
                             dismiss()
                         } else {
                             print("약속 생성 실패")
@@ -168,8 +171,4 @@ func sendPushNotificationToAllUsers(title: String, body: String) {
             print("알림 전송 성공")
         }
     }.resume()
-}
-
-#Preview {
-    AddPromiseView()
 }

@@ -52,6 +52,16 @@ struct HomeView: View {
                         .foregroundColor(.gray)
                         .font(.caption)
                     
+                    if myPromises.isEmpty {
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(Color.gray.opacity(0.3))
+                            .frame(height: 80)
+                            .overlay(
+                                Text("지금은 약속이 없습니다")
+                                    .foregroundColor(.gray)
+                            )
+                    }
+
                     ForEach(myPromises) { promise in
                         NavigationLink(destination: PromiseDetailView(id: promise.id)) {
                             EventCardView(
@@ -65,14 +75,25 @@ struct HomeView: View {
                     Text("진행중인 이벤트")
                         .foregroundColor(.gray)
                         .font(.caption)
-                        ForEach(otherPromises) { promise in
-                            NavigationLink(destination: PromiseDetailView(id: promise.id)) {
-                                EventCardView(
-                                    title: promise.purpose,
-                                    place: promise.place,
-                                    date: promise.date
-                                )
-                            }
+                    
+                    if otherPromises.isEmpty {
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(Color.gray.opacity(0.3))
+                            .frame(height: 80)
+                            .overlay(
+                                Text("지금은 약속이 없습니다")
+                                    .foregroundColor(.gray)
+                            )
+                    }
+                    
+                    ForEach(otherPromises) { promise in
+                        NavigationLink(destination: PromiseDetailView(id: promise.id)) {
+                            EventCardView(
+                                title: promise.purpose,
+                                place: promise.place,
+                                date: promise.date
+                            )
+                        }
                     }
                 }
                 .padding()
@@ -89,7 +110,7 @@ struct HomeView: View {
                     }
                     .foregroundColor(.blue) // 버튼 글자 색
                     .sheet(isPresented: $showSheet) {
-                        AddPromiseView()
+                        AddPromiseView(onDismiss: fetchPromises)
                     }
                 }
             }
