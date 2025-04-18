@@ -24,7 +24,7 @@ struct HomeView: View {
         var purpose: String
         var place: String
         var date: String
-        var nickname: String
+        var nicknames: [String]
     }
     
     var body: some View {
@@ -108,12 +108,12 @@ struct HomeView: View {
                 dateFormatter.dateFormat = "yyyy.MM.dd(E) HH:mm"
                 dateFormatter.locale = Locale(identifier: "ko_KR")
                 let date = timestamp != nil ? dateFormatter.string(from: timestamp!.dateValue()) : ""
-                let nickname = data["nickname"] as? String ?? ""
+                let nicknames = data["nickname"] as? [String] ?? []
                 let id = doc.documentID
-                let promise = Promise(id: id, purpose: purpose, place: place, date: date, nickname: nickname)
+                let promise = Promise(id: id, purpose: purpose, place: place, date: date, nicknames: nicknames)
                 let currentNickname = UserDefaults.standard.string(forKey: "nickname") ?? ""
-
-                if nickname == currentNickname {
+                
+                if nicknames.contains(currentNickname) {
                     myPromises.append(promise)
                 } else {
                     otherPromises.append(promise)

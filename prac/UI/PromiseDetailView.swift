@@ -64,14 +64,6 @@ struct PromiseDetailView: View {
                 }
                 .padding(.top)
                 .navigationTitle("Joid님의 약속")
-                .toolbar {
-//                    ToolbarItem(placement: .navigationBarLeading) {
-//                        Button("뒤로가기") {
-//                            dismiss()
-//                        }
-//                        .foregroundColor(.blue)
-//                    }
-                }
                 .toolbarBackground(Color.white, for: .navigationBar)
                 .toolbarBackground(.visible, for: .navigationBar)
                 .background(Color(.systemGray6))
