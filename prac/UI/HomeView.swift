@@ -8,6 +8,22 @@
 import SwiftUI
 import Firebase
 import FirebaseFirestore
+import UserNotifications
+
+class NotificationManager {
+    static let instance = NotificationManager()
+    
+    func requestAuthorization() {
+        let options: UNAuthorizationOptions = [.alert, .sound, .badge]
+        UNUserNotificationCenter.current().requestAuthorization(options: options) { suceess, error in
+            if let error {
+                print("ERROR: \(error)")
+            } else {
+                print("SUCCESS")
+            }
+        }
+    }
+}
 
 struct HomeView: View {
     @State var showSheet: Bool = false

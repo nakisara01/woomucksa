@@ -9,6 +9,7 @@ import SwiftUI
 import FirebaseAuth
 import FirebaseFirestore
 
+
 struct LoginView: View {
     var valueColor: Color = .black
     @AppStorage("nickname") var nickname: String = ""

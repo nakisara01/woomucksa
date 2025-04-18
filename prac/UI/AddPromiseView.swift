@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Firebase
+import FirebaseMessaging
 
 struct AddPromiseView: View {
     var body: some View {
@@ -141,6 +142,32 @@ func createPromise(nickname: String, place: String, date: Date, purpose: String,
             completion(true)
         }
     }
+}
+
+func sendPushNotificationToAllUsers(title: String, body: String) {
+    let url = URL(string: "https://fcm.googleapis.com/fcm/send")!
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    request.setValue("key=여기_서버_키_입력", forHTTPHeaderField: "Authorization")
+    
+    let json: [String: Any] = [
+        "to": "/topics/all",
+        "notification": [
+            "title": title,
+            "body": body
+        ]
+    ]
+    
+    request.httpBody = try? JSONSerialization.data(withJSONObject: json, options: [])
+    
+    URLSession.shared.dataTask(with: request) { data, response, error in
+        if let error = error {
+            print("알림 전송 실패: \(error.localizedDescription)")
+        } else {
+            print("알림 전송 성공")
+        }
+    }.resume()
 }
 
 #Preview {
